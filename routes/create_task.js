@@ -1,5 +1,8 @@
 var IronMQ = require('ironmq-promise');
+var Promise = require('promise');
 var URL = require('url');
+var Task = require('../model/task');
+var uuid = require('uuid');
 
 function createTask(req, res) {
   var queueName = req.params.queue;
@@ -11,7 +14,13 @@ function createTask(req, res) {
     });
   }
 
+  // unique request id that will be assigned for this task.
+  var id = uuid.v4();
+
+  // services for creating the task & its metrics
   var url = req.app.get('url');
+  var table = req.app.get('tableService');
+  var tableName = req.app.get('table');
 
   var queue = new IronMQ({ queue_name: queueName });
   var request = {
@@ -19,12 +28,25 @@ function createTask(req, res) {
     finish: URL.resolve(url, '/stats/stop'),
     task: req.body
   };
-
   var json = JSON.stringify(request);
+
+  // post a message on the queue and get its id
   queue.post({ body: json }).then(
     function(messageId) {
-      // created
-      res.send(201, { messageId: messageId });
+      var task = Task.create(
+        id,
+        queueName,
+        messageId,
+        request.task
+      );
+
+      console.log('inserting task', task);
+      // create a record in azure recording this task
+      return table.insertEntity(tableName, task);
+    }
+  ).then(
+    function(result) {
+      res.send(201, result);
     }
   ).catch(function(err) {
     console.error(err.stack);

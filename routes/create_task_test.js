@@ -1,4 +1,6 @@
 suite('create task', function() {
+  var table = require('../test/table')();
+
   var URL = require('url');
   var uuid = require('uuid');
   var app = require('../api');
@@ -23,7 +25,7 @@ suite('create task', function() {
 
   suite('valid task', function() {
     var task = { image: 'ubuntu', command: ['ls'] };
-    var messageId;
+    var responseBody;
 
     setup(function(done) {
       return request(app).
@@ -33,15 +35,24 @@ suite('create task', function() {
         expect('Content-Type', /application\/json/).
         end(function(err, result) {
           if (err) return done(err);
-          messageId = result.res.body.messageId;
+          responseBody = result.res.body;
           done();
         });
+    });
+
+    test('item on azure', function() {
+      return table.queryEntity(
+        process.env.WORKER_STATS_AZURE_TABLE,
+        responseBody.PartitionKey,
+        responseBody.RowKey,
+        {}
+      );
     });
 
     test('message on ironmq', function() {
       return ironQueue.get({ n: 1 }).then(
         function(message) {
-          assert.equal(message.id, messageId);
+          assert.equal(message.id, responseBody.ironMessageId);
           var body = JSON.parse(message.body);
           assert.deepEqual(body.task, task);
         }
