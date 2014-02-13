@@ -35,12 +35,41 @@ app.use(function(req, res, next) {
   tablePromise.then(next.bind(this, null));
 });
 
+function demandQueue(req, res, next) {
+  if (!req.params.queue) {
+    return res.send(400, { message: ':queue must be passed' });
+  }
+  next();
+}
+
+function demandId(req, res, next) {
+  if (!req.params.id) {
+    return res.send(400, { message: ':id must be passed' });
+  }
+  next();
+}
+
 /** task routes */
-app.post('/task/:queue', require('./routes/create_task'));
+app.post(
+  '/task/:queue',
+  demandQueue,
+  require('./routes/create_task')
+);
 
 /** task stats */
-app.post('/stats/start');
-app.post('/stats/stop');
+app.post(
+  '/stats/:queue/:id/start',
+  demandQueue,
+  demandId,
+  require('./routes/stats_start')
+);
+
+app.post(
+  '/stats/:queue/:id/stop',
+  demandQueue,
+  demandId,
+  require('./routes/stats_stop')
+);
 
 
 module.exports = app;
