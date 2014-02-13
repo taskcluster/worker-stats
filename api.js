@@ -13,6 +13,10 @@ app.set('tableService', require('./azure_table')());
 // always use the json parser
 app.use(express.json());
 
+// serve assets from static
+app.use(express.directory('static'));
+app.use(express.static('static'));
+
 // initialize the table if it does not exist
 var service = app.get('tableService');
 var tablePromise = service.createTableIfNotExists(app.get('table'));

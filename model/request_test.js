@@ -21,13 +21,13 @@ suite('models/request', function() {
     );
 
     assert.equal(
-      result.claim,
+      result.start,
       URL.resolve(url, prefix + 'start')
     );
 
     assert.equal(
-      result.finish,
-      URL.resolve(url, prefix + 'end')
+      result.stop,
+      URL.resolve(url, prefix + 'stop')
     );
 
     assert.deepEqual(result.task, task);

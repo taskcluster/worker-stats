@@ -13,14 +13,14 @@ var Request = {
     var id = uuid.v4();
     var result = { id: id, task: task };
 
-    result.claim = URL.resolve(
+    result.start = URL.resolve(
       url,
       util.format(STAT_URL_FORMAT, queue, id, 'start')
     );
 
-    result.finish = URL.resolve(
+    result.stop = URL.resolve(
       url,
-      util.format(STAT_URL_FORMAT, queue, id, 'end')
+      util.format(STAT_URL_FORMAT, queue, id, 'stop')
     );
 
     return result;

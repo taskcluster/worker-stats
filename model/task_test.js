@@ -1,7 +1,7 @@
 suite('task', function() {
   var subject = require('./task');
 
-  test('create', function() {
+  test('#create', function() {
     var task = { xfoo: true };
     var result = subject.create(
       1,
@@ -21,4 +21,16 @@ suite('task', function() {
       result
     );
   });
+
+  test('#update', function() {
+    var newValues = { updated: true };
+    var result = subject.update('part', 'row', newValues);
+
+    assert.deepEqual(result, {
+      PartitionKey: 'part',
+      RowKey: 'row',
+      updated: true
+    });
+  });
+
 });

@@ -40,11 +40,11 @@ suite('POST /stats/:id/start', function() {
 
     test('after update', function() {
       return tableService.queryEntity(
-        table, 
+        table,
         inserted.PartitionKey,
         inserted.RowKey
       ).then(function(value) {
-        assert.equal(value.start, taskUpdate);
+        assert.deepEqual(value.log, taskUpdate.log);
       });
     });
   });

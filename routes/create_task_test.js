@@ -46,7 +46,11 @@ suite('create task', function() {
         responseBody.PartitionKey,
         responseBody.RowKey,
         {}
-      );
+      ).then(function(value) {
+        console.log();
+        console.log(JSON.stringify(value, null, 2));
+        console.log();
+      });
     });
 
     test('message on ironmq', function() {

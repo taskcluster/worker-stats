@@ -1,3 +1,5 @@
+var Task = require('../model/task');
+
 /**
 Handles incoming metrics for a single task's end.
 */
@@ -8,11 +10,7 @@ function statsStop(req, res) {
 
   var table = app.get('table');
   var tableService = app.get('tableService');
-  var entity = {
-    PartitionKey: queue,
-    RowKey: id,
-    stop: req.body
-  };
+  var entity = Task.update(queue, id, req.body);
 
   return tableService.mergeEntity(
     table,

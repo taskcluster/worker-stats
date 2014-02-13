@@ -15,9 +15,6 @@ function createTask(req, res) {
     });
   }
 
-  // unique request id that will be assigned for this task.
-  var id = uuid.v4();
-
   // services for creating the task & its metrics
   var url = req.app.get('url');
   var table = req.app.get('tableService');
@@ -26,7 +23,7 @@ function createTask(req, res) {
   var queue = new IronMQ({ queue_name: queueName });
   var request = Request.create(
     url,
-    queue,
+    queueName,
     req.body
   );
 
@@ -36,7 +33,7 @@ function createTask(req, res) {
   queue.post({ body: json }).then(
     function(messageId) {
       var task = Task.create(
-        id,
+        request.id,
         queueName,
         messageId,
         request.task

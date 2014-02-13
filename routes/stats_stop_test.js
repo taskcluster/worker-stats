@@ -22,7 +22,8 @@ suite('POST /stats/:id/start', function() {
 
   suite('successful update', function() {
     var responseBody;
-    var taskUpdate = { times: { xfoo: 'woot' } };
+    var taskUpdate = { startTime: 1 };
+
     // issue the request
     setup(function(done) {
       request(app).
@@ -44,7 +45,7 @@ suite('POST /stats/:id/start', function() {
         inserted.PartitionKey,
         inserted.RowKey
       ).then(function(value) {
-        assert.equal(value.stop, taskUpdate);
+        assert.equal(value.startTime, taskUpdate.startTime);
       });
     });
   });

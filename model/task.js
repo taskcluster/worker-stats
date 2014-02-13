@@ -18,6 +18,25 @@ var Task = {
       ironMessageId: messageId,
       task: task
     };
+  },
+
+  /**
+  Update the entity with new values.
+
+  @param {String} partition for entity.
+  @param {String} row for entity.
+  @param {Object} newValues to update the entity with.
+  */
+  update: function(partition, row, newValues) {
+    var object = {};
+    for (var key in newValues) {
+      object[key] = newValues[key];
+    }
+
+    object.PartitionKey = partition;
+    object.RowKey = row;
+
+    return object;
   }
 
 };
