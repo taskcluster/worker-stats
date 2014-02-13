@@ -2,6 +2,7 @@ var IronMQ = require('ironmq-promise');
 var Promise = require('promise');
 var URL = require('url');
 var Task = require('../model/task');
+var Request = require('../model/request');
 var uuid = require('uuid');
 
 function createTask(req, res) {
@@ -23,11 +24,12 @@ function createTask(req, res) {
   var tableName = req.app.get('table');
 
   var queue = new IronMQ({ queue_name: queueName });
-  var request = {
-    claim: URL.resolve(url, '/stats/start'),
-    finish: URL.resolve(url, '/stats/stop'),
-    task: req.body
-  };
+  var request = Request.create(
+    url,
+    queue,
+    req.body
+  );
+
   var json = JSON.stringify(request);
 
   // post a message on the queue and get its id
