@@ -1,6 +1,6 @@
 suite('create task', function() {
+  var superagent = require('superagent-promise');
   var table = require('../test/table')();
-
   var URL = require('url');
   var uuid = require('uuid');
   var app = require('../api');
@@ -47,9 +47,10 @@ suite('create task', function() {
         responseBody.RowKey,
         {}
       ).then(function(value) {
-        console.log();
-        console.log(JSON.stringify(value, null, 2));
-        console.log();
+        assert.ok(typeof value.taskUrl === 'string', 'has a task');
+        return superagent('GET', value.taskUrl).end();
+      }).then(function(res) {
+        assert.deepEqual(res.body, task);
       });
     });
 

@@ -1,3 +1,6 @@
+var aws = require('aws-sdk-promise');
+var S3 = aws.S3;
+
 var express = require('express');
 var app = express();
 
@@ -9,6 +12,13 @@ app.set('table', process.env.WORKER_STATS_AZURE_TABLE);
 
 // setup table service
 app.set('tableService', require('./azure_table')());
+
+// s3 service
+app.set('s3', new S3({
+  region: process.env.AWS_REGION || 'us-west-2'
+}));
+
+app.set('s3Bucket', process.env.AWS_BUCKET || 'taskcluster-tasks');
 
 // always use the json parser
 app.use(express.json());
@@ -53,10 +63,14 @@ function demandId(req, res, next) {
   next();
 }
 
+/** azure */
+app.post('/azure', require('./routes/azure'));
+
 /** task routes */
 app.post(
   '/task/:queue',
   demandQueue,
+  require('./middleware/use_url_or_upload'),
   require('./routes/create_task')
 );
 

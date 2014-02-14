@@ -1,0 +1,14 @@
+#! /usr/bin/env node
+
+var api = require('../api');
+var port = process.env.PORT || 60023;
+
+console.log('listening on port', port);
+
+var server = api.listen(port, function() {
+  // if the url is not configured yet set it now.
+  if (!api.get('url')) {
+    var addr = server.address();
+    api.set('url', 'http://localhost:' + addr.port + '/');
+  }
+});

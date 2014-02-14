@@ -6,7 +6,7 @@ suite('models/request', function() {
   test('#create', function() {
     var url = 'http://xfoo.com/';
     var queue = 'xfoo';
-    var task = { woot: true };
+    var task = '/path/to/task';
 
     var result = subject.create(
       url,
@@ -30,6 +30,6 @@ suite('models/request', function() {
       URL.resolve(url, prefix + 'stop')
     );
 
-    assert.deepEqual(result.task, task);
+    assert.deepEqual(result.taskUrl, task);
   });
 });

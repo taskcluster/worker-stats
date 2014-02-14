@@ -8,19 +8,15 @@ var uuid = require('uuid');
 function createTask(req, res) {
   var queueName = req.params.queue;
 
-  if (!queueName) {
-    console.error('Invalid resource request use task/:queue form');
-    return res.send(404, {
-      error: 'use /task/:queue form'
-    });
-  }
-
   // services for creating the task & its metrics
   var url = req.app.get('url');
   var table = req.app.get('tableService');
+  var bucket = req.app.get('s3Bucket');
   var tableName = req.app.get('table');
+  var taskUrl = req.params.taskUrl;
 
   var queue = new IronMQ({ queue_name: queueName });
+
   var request = Request.create(
     url,
     queueName,
@@ -36,7 +32,7 @@ function createTask(req, res) {
         request.id,
         queueName,
         messageId,
-        request.task
+        taskUrl
       );
 
       console.log('inserting task', task);

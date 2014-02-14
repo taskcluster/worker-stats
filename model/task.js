@@ -7,16 +7,16 @@ var Task = {
   @param {String} uuid for record.
   @param {String} queue used for partition key (and also a discrete queue)
   @param {String} messageId from the queue.
-  @param {Object} task that was inserted into the queue.
+  @param {Object} taskUrl task definition which lives at this url.
   @return {Object}
   */
-  create: function(uuid, queue, messageId, task) {
+  create: function(uuid, queue, messageId, taskUrl) {
     return {
       PartitionKey: queue,
       RowKey: uuid,
       queue: queue,
       ironMessageId: messageId,
-      task: task
+      taskUrl: taskUrl
     };
   },
 
