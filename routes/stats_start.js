@@ -12,6 +12,8 @@ function statsStart(req, res) {
   var tableService = app.get('tableService');
   var entity = Task.update(queue, id, req.body);
 
+  console.log('updated task', entity);
+
   return tableService.mergeEntity(
     table,
     entity
