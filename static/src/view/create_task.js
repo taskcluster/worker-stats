@@ -27,7 +27,6 @@ export class TaskView {
   */
   constructor(element) {
     this.element = element;
-    console.log(this.element, '<<<!');
 
     var form = element.querySelector('form');
     form.onsubmit = function(e) {

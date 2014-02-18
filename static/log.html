@@ -3,17 +3,29 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>Taskcluster worker stats</title>
-  <script defer src="js/vendor/superagent.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="js/vendor/azure_table.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="js/vendor/azure_logstream.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="js/view/create_task.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="js/store/tasks.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="js/store/log.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="log.js" type="text/javascript" charset="utf-8"></script>
-  <script defer type="text/javascript" charset="utf-8">
-  </script>
+  <script defer src="vendor/traceur-runtime.js" type="text/javascript" charset="utf-8"></script>
+  <script defer data-main="js/task_log.js" src="vendor/alameda.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+
+  <section id="create-task">
+    <h1>
+      Create a task
+    </h1>
+    <form method="POST" action="/tasks/new">
+      <label class="image">
+        <span>Image:</span>
+        <input value="ubuntu" name="image" />
+      </label>
+
+      <label class="command">
+        <span>Command:</span>
+        <input value="ls" name="command" />
+      </label>
+
+      <button>Submit</button>
+    </form>
+  </section>
 </body>
 </html>
 

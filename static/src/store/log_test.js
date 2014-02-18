@@ -1,5 +1,7 @@
 /*jshint esnext:true */
 import {Log} from './log';
+import {assert} from '../../vendor/chai';
+
 suite('store/log', function() {
   var url = 'http://taskclusterlog.blob.core.windows.net/taskclusterlogs/08890cb0-dac7-46b9-ad09-28cfd3a65f27';
 

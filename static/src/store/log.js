@@ -1,4 +1,6 @@
 /*jshint esnext:true */
+module superagent from '../../vendor/superagent';
+
 var COMPLETE_HEADER = 'x-ms-meta-complete';
 
 function req(method, url) {

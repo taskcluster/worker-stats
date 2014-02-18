@@ -2,6 +2,9 @@
 
 var AUTH_URL = '/azure';
 
+module AzureTable from '../../vendor/azure_table';
+module superagent from '../../vendor/superagent';
+
 export class TasksStore {
   constructor() {
     this.azure = new AzureTable({
@@ -19,7 +22,6 @@ export class TasksStore {
     return new Promise((accept, reject) => {
       var req = superagent.post('/task/aws-docker').send(task);
       req.end((err, response) => {
-        console.log(response);
         if (!response.ok) {
           reject(new Error('could not create task'));
           return;

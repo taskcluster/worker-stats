@@ -1,20 +1,31 @@
 /*jshint esnext: true */
 
 /** glue for building the task */
-import {TasksStore} from './store/tasks';
-import {TaskView} from './view/create_task';
-import {Log} from './store/log';
+module Terminal from '../vendor/term';
+import {TasksStore} from 'store/tasks';
+import {Log} from 'store/log';
+import {TaskModel} from 'model/task';
+import {TaskView} from 'view/create_task';
 
 var view = new TaskView(document.querySelector('#create-task'));
 var store = new TasksStore();
+var term = new Terminal({
+  colors: Terminal.colors,
+  cols: 100,
+  rows: 30,
+  screenKeys: true
+});
+
+term.open(document.body);
 
 view.onsubmit = (json) => {
-  store.createTask(json).then((result) => {
+  var task = TaskModel.bashTask(json.image, json.command);
+  store.createTask(task).then((result) => {
     return store.refreshTaskUntil(result, 'log');
   }).then((task) => {
     var reader = new Log(task.log);
     reader.ondata = (value) => {
-      console.log(value);
+      term.write(value);
     };
 
     reader.onend = () => {

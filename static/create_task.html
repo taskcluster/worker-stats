@@ -3,10 +3,6 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>Taskcluster worker stats</title>
-  <script defer src="vendor/traceur-runtime.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="vendor/superagent.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="vendor/azure_table.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="js/create_task.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 
@@ -28,5 +24,10 @@
       <button>Submit</button>
     </form>
   </section>
+
+  <script type="text/javascript" charset="utf-8">
+  </script>
+  <script defer src="vendor/traceur-runtime.js" type="text/javascript" charset="utf-8"></script>
+  <script defer data-main="js/create_task.js" src="vendor/alameda.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
