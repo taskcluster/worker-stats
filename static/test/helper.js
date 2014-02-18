@@ -1,0 +1,1 @@
+this.assert = chai.assert;

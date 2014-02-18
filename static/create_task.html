@@ -3,11 +3,10 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>Taskcluster worker stats</title>
-  <script defer src="js/vendor/superagent.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="js/task.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="create_task.js" type="text/javascript" charset="utf-8"></script>
-  <script defer type="text/javascript" charset="utf-8">
-  </script>
+  <script defer src="vendor/traceur-runtime.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="vendor/superagent.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="vendor/azure_table.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="js/create_task.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 
@@ -18,12 +17,12 @@
     <form method="POST" action="/tasks/new">
       <label class="image">
         <span>Image:</span>
-        <input name="image" />
+        <input value="ubuntu" name="image" />
       </label>
 
       <label class="command">
         <span>Command:</span>
-        <input name="command" />
+        <input value="ls" name="command" />
       </label>
 
       <button>Submit</button>
