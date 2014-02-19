@@ -1,0 +1,23 @@
+#! /usr/bin/env node
+
+var ENV = __dirname + '/../.env';
+
+// load the configuration options if available
+var env = require('node-env-file');
+var fs = require('fs');
+
+if (fs.existsSync(ENV)) env(ENV);
+
+var commander = require('commander');
+
+commander.
+  command('show-tasks').
+  description('show tasks in the table').
+  action(require('./db-show-tasks'));
+
+commander.
+  command('purge-tasks').
+  description('delete all tasks in the azure database').
+  action(require('./db-purge-tasks'));
+
+commander.parse(process.argv);
