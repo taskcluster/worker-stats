@@ -12,6 +12,9 @@ function zeroPad(size, value) {
   return pad + value;
 }
 
+/**
+Generate a (ghetto) lexicographically ordered id (based on the current when generated.
+*/
 module.exports = function() {
   var id = zeroPad(fixedLength + 10, maxValueMS - Date.now());
   return id + '-' + uuid.v1();
