@@ -16,7 +16,8 @@ var Task = {
       RowKey: uuid,
       queue: queue,
       ironMessageId: messageId,
-      taskUrl: taskUrl
+      taskUrl: taskUrl,
+      submitted: new Date()
     };
   },
 

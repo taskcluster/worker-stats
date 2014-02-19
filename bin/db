@@ -12,6 +12,7 @@ var commander = require('commander');
 
 commander.
   command('show-tasks').
+  option('-n, --number <value>', 'number of rows to return', 10).
   description('show tasks in the table').
   action(require('./db-show-tasks'));
 

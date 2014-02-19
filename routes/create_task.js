@@ -3,7 +3,6 @@ var Promise = require('promise');
 var URL = require('url');
 var Task = require('../model/task');
 var Request = require('../model/request');
-var uuid = require('uuid');
 
 function createTask(req, res) {
   var queueName = req.params.queue;

@@ -4,7 +4,7 @@ var TableQuery = require('azure').TableQuery;
 
 module.exports = function(cmd) {
   var tableName = process.env.WORKER_STATS_AZURE_TABLE;
-  var fields = ['PartitionKey', 'RowKey', 'Timestamp'];
+  var fields = ['PartitionKey', 'RowKey', 'submitted'];
   var asciiTable = new AsciiTable({
     head: fields
   });
@@ -12,11 +12,11 @@ module.exports = function(cmd) {
   // list the top 10 items.
   var query = TableQuery.select(fields.join(', '))
                         .from(tableName)
-                        .top(10);
+                        .top(cmd.number);
 
   function pushItem(item) {
     item = fields.map(function(field) {
-      if (field === 'Timestamp') return item[field].toLocaleString();
+      if (field === 'submitted') return item[field].toLocaleString();
       return item[field] || '';
     });
 
