@@ -1,4 +1,8 @@
-var tests = [];
+var tests = [
+  // amd setup files
+  '/base/static/vendor/mocha-as-promised.js'
+];
+
 for (var file in window.__karma__.files) {
   if (window.__karma__.files.hasOwnProperty(file)) {
     console.log(file);

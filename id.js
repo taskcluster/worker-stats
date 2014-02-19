@@ -14,8 +14,9 @@ function zeroPad(size, value) {
 
 /**
 Generate a (ghetto) lexicographically ordered id (based on the current when generated.
+This is used so azure table results always come sorted by their submission time.
 */
 module.exports = function() {
-  var id = zeroPad(fixedLength + 10, maxValueMS - Date.now());
+  var id = zeroPad(fixedLength + 1, maxValueMS - Date.now());
   return id + '-' + uuid.v1();
 };

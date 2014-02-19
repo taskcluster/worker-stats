@@ -9,7 +9,7 @@ module.exports = function(config) {
     },
 
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_DEBUG,
+    logLevel: config.LOG_INFO,
 
 
     // enable / disable watching file and executing ests whenever any file changes
@@ -26,12 +26,24 @@ module.exports = function(config) {
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
     browsers: ['Chrome'],
 
+    proxies: {
+      '/app': 'http://127.0.0.1:60023'
+    },
+
     // If browser does not
 
     files: [
       'static/test/main.js',
       { pattern: 'static/src/**/*.js', included: false },
       { pattern: 'static/vendor/**/*.js', included: false }
+    ],
+
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-mocha',
+      'karma-requirejs',
+      'karma-firefox-launcher',
+      'karma-traceur-preprocessor'
     ],
 
     // default configuration, not required

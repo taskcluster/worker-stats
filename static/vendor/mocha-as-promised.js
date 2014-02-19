@@ -51,11 +51,6 @@
 
             mochaModules.forEach(mochaAsPromised);
         };
-    } else if (typeof define === "function" && define.amd) {
-        // AMD
-        define(function () {
-            return mochaAsPromised;
-        });
     } else {
         // Other environment (usually <script> tag): plug in global `Mocha` directly and automatically.
         mochaAsPromised(Mocha);

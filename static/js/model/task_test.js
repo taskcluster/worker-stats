@@ -1,7 +1,7 @@
 define(['./task', '../../vendor/chai'], function($__0,$__1) {
   "use strict";
   var __moduleName = "../../../../static/src/model/task_test";
-  var TaskModel = ($__0).TaskModel;
+  var TaskModel = ($__0).default;
   var assert = ($__1).assert;
   suite('task model', function() {
     test('constructor', function() {

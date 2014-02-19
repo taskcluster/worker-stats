@@ -1,5 +1,5 @@
 /* jshint esnext: true */
-export class TaskModel {
+export default class TaskModel {
   constructor(options={}) {
     this.image = 'ubuntu';
     this.command = [];

@@ -1,15 +1,26 @@
 /*jshint esnext: true */
 
-var AUTH_URL = '/azure';
+var URLS = {
+  azureAuth: '/azure',
+  createTask: '/task/aws-docker'
+};
 
 module AzureTable from '../../vendor/azure_table';
 module superagent from '../../vendor/superagent';
 
-export class TasksStore {
-  constructor() {
+export default class TasksStore {
+  constructor(host) {
+    // overridable urls for task store.
+    this.urls = Object.assign({}, URLS);
+    this.host = host;
     this.azure = new AzureTable({
-      signUrl: AUTH_URL
+      signUrl: this.path(URLS.azureAuth)
     });
+  }
+
+  // return a path on the server
+  path(path) {
+    return this.host + path;
   }
 
   /**
@@ -20,10 +31,13 @@ export class TasksStore {
   */
   createTask(task) {
     return new Promise((accept, reject) => {
-      var req = superagent.post('/task/aws-docker').send(task);
+      var url = this.path(this.urls.createTask);
+      var req = superagent.post(url).send(task);
       req.end((err, response) => {
         if (!response.ok) {
-          reject(new Error('could not create task'));
+          var err = new Error('could not create task');
+          err.response = response;
+          reject(err);
           return;
         }
         accept(response.body);
@@ -42,18 +56,28 @@ export class TasksStore {
     });
   }
 
-  refreshTaskUntil(task, field, timeout) {
-    timeout = timeout || 1000;
+  refreshTaskUntil(task, field, interval=1000, timeout=30000) {
+    timeout = Date.now() + timeout;
 
     return new Promise((accept, reject) => {
       var refresh = () => {
+        if (Date.now() > timeout) {
+          return reject(new Error('timeout during refresh'));
+        }
+
         this.refreshTask(task).then((task) => {
           if (task[field]) return accept(task);
-          setTimeout(refresh, timeout);
+          setTimeout(refresh, interval);
         }).catch(reject);
       };
 
       refresh();
+    });
+  }
+
+  listTasks(limit=20) {
+    return this.azure.buildQuery({
+      '$top': limit,
     });
   }
 }

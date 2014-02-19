@@ -1,5 +1,5 @@
 /* jshint esnext: true*/
-import {TaskModel} from './task';
+import TaskModel from './task';
 import {assert} from '../../vendor/chai';
 
 suite('task model', function() {
