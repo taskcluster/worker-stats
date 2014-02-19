@@ -1,6 +1,7 @@
 /* jshint esnext: true */
 var config = {
-  host: '/app'
+  host: '/app',
+  queue: 'testqueue'
 };
 
 export default config;

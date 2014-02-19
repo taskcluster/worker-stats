@@ -27,7 +27,7 @@ module.exports = function(config) {
     browsers: ['Chrome'],
 
     proxies: {
-      '/app': 'http://127.0.0.1:60023'
+      '/app': 'http://127.0.0.1:60066'
     },
 
     // If browser does not

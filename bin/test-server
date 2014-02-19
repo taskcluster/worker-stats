@@ -1,0 +1,8 @@
+#! /bin/bash
+
+# Client tests could be sloppy with deletes so ensure everything is in a
+# different table.
+export WORKER_STATS_AZURE_TABLE=taskClusterWorkerStatsClientTest
+export PORT=60066
+
+./bin/server

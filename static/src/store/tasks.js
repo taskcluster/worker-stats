@@ -1,8 +1,8 @@
 /*jshint esnext: true */
 
 var URLS = {
-  azureAuth: '/azure',
-  createTask: '/task/aws-docker'
+  azureAuth: () => '/azure',
+  createTask: (queue) => `/task/${queue}`
 };
 
 module AzureTable from '../../vendor/azure_table';
@@ -10,32 +10,32 @@ module superagent from '../../vendor/superagent';
 
 export default class TasksStore {
   constructor(host) {
-    // overridable urls for task store.
-    this.urls = Object.assign({}, URLS);
     this.host = host;
+    var authUrl = this.path(URLS.azureAuth());
     this.azure = new AzureTable({
-      signUrl: this.path(URLS.azureAuth)
+      signUrl: authUrl
     });
   }
 
   // return a path on the server
-  path(path) {
-    return this.host + path;
+  path(pathPart) {
+    return this.host + pathPart;
   }
 
   /**
   POST a task to the server.
 
+  @param {String} queue to submit task to.
   @param {Object} task to submit to the server.
   @return Promise
   */
-  createTask(task) {
+  createTask(queue, task) {
     return new Promise((accept, reject) => {
-      var url = this.path(this.urls.createTask);
+      var url = this.path(URLS.createTask(queue));
       var req = superagent.post(url).send(task);
       req.end((err, response) => {
         if (!response.ok) {
-          var err = new Error('could not create task');
+          err = new Error('could not create task');
           err.response = response;
           reject(err);
           return;
@@ -57,6 +57,10 @@ export default class TasksStore {
   }
 
   refreshTaskUntil(task, field, interval=1000, timeout=30000) {
+    function call(xfoo) {
+      return str();
+    }
+
     timeout = Date.now() + timeout;
 
     return new Promise((accept, reject) => {

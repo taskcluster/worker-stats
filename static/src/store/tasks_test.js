@@ -14,7 +14,7 @@ suite('store tasks', function() {
 
   test('#createTask', () => {
     var task = TaskModel.bashTask('ubuntu', 'ls');
-    return subject.createTask(task).then((value) => {
+    return subject.createTask(config.queue, task).then((value) => {
       assert.ok(value.taskUrl);
     });
   });
@@ -23,7 +23,7 @@ suite('store tasks', function() {
     var task = TaskModel.bashTask('ubuntu', 'ls');
     var azureTask;
     setup(function() {
-      return subject.createTask(task).then(
+      return subject.createTask(config.queue, task).then(
         (result) => azureTask = result
       );
     });
@@ -40,7 +40,7 @@ suite('store tasks', function() {
     var task = TaskModel.bashTask('ubuntu', 'ls');
     var azureTask;
     setup(function() {
-      return subject.createTask(task).then(
+      return subject.createTask(config.queue, task).then(
         (result) => azureTask = result
       );
     });
@@ -68,7 +68,7 @@ suite('store tasks', function() {
     var task = TaskModel.bashTask('ubuntu', 'ls');
     var azureTask;
     setup(function() {
-      return subject.createTask(task).then(
+      return subject.createTask(config.queue, task).then(
         (result) => azureTask = result
       );
     });
@@ -78,8 +78,8 @@ suite('store tasks', function() {
         assert.equal(tasks.length, 1);
         var task = tasks[0];
 
-        assert.equal(task.PartitionKey, azureTask.PartitionKey);
         assert.equal(task.RowKey, azureTask.RowKey);
+        assert.equal(task.PartitionKey, azureTask.PartitionKey);
       });
     });
   });

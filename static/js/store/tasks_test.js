@@ -13,7 +13,7 @@ define(['./tasks', '../model/task', '../test_config', '../../vendor/chai'], func
     }));
     test('#createTask', (function() {
       var task = TaskModel.bashTask('ubuntu', 'ls');
-      return subject.createTask(task).then((function(value) {
+      return subject.createTask(config.queue, task).then((function(value) {
         assert.ok(value.taskUrl);
       }));
     }));
@@ -21,7 +21,7 @@ define(['./tasks', '../model/task', '../test_config', '../../vendor/chai'], func
       var task = TaskModel.bashTask('ubuntu', 'ls');
       var azureTask;
       setup(function() {
-        return subject.createTask(task).then((function(result) {
+        return subject.createTask(config.queue, task).then((function(result) {
           return azureTask = result;
         }));
       });
@@ -36,7 +36,7 @@ define(['./tasks', '../model/task', '../test_config', '../../vendor/chai'], func
       var task = TaskModel.bashTask('ubuntu', 'ls');
       var azureTask;
       setup(function() {
-        return subject.createTask(task).then((function(result) {
+        return subject.createTask(config.queue, task).then((function(result) {
           return azureTask = result;
         }));
       });
@@ -59,7 +59,7 @@ define(['./tasks', '../model/task', '../test_config', '../../vendor/chai'], func
       var task = TaskModel.bashTask('ubuntu', 'ls');
       var azureTask;
       setup(function() {
-        return subject.createTask(task).then((function(result) {
+        return subject.createTask(config.queue, task).then((function(result) {
           return azureTask = result;
         }));
       });
@@ -67,8 +67,8 @@ define(['./tasks', '../model/task', '../test_config', '../../vendor/chai'], func
         return subject.listTasks(1).then((function(tasks) {
           assert.equal(tasks.length, 1);
           var task = tasks[0];
-          assert.equal(task.PartitionKey, azureTask.PartitionKey);
           assert.equal(task.RowKey, azureTask.RowKey);
+          assert.equal(task.PartitionKey, azureTask.PartitionKey);
         }));
       });
     });
