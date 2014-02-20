@@ -17,7 +17,8 @@ var Task = {
       queue: queue,
       ironMessageId: messageId,
       taskUrl: taskUrl,
-      submitted: new Date()
+      submitted: new Date(),
+      state: 'pending'
     };
   },
 

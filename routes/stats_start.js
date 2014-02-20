@@ -11,6 +11,7 @@ function statsStart(req, res) {
   var table = app.get('table');
   var tableService = app.get('tableService');
   var entity = Task.update(queue, id, req.body);
+  entity.state = 'running';
 
   console.log('updated task', entity);
 

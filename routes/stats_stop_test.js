@@ -45,6 +45,7 @@ suite('POST /stats/:id/start', function() {
         inserted.PartitionKey,
         inserted.RowKey
       ).then(function(value) {
+        assert.equal(value.state, 'done');
         assert.equal(value.startTime, taskUpdate.startTime);
       });
     });

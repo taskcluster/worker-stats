@@ -48,6 +48,7 @@ suite('create task', function() {
         {}
       ).then(function(value) {
         assert.ok(typeof value.taskUrl === 'string', 'has a task');
+        assert.equal(value.state, 'pending');
         return superagent('GET', value.taskUrl).end();
       }).then(function(res) {
         assert.deepEqual(res.body, task);

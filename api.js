@@ -66,6 +66,9 @@ function demandId(req, res, next) {
 /** azure */
 app.post('/azure', require('./routes/azure'));
 
+/* queues */
+app.get('/queues', require('./routes/queues'));
+
 /** task routes */
 app.post(
   '/task/:queue',
