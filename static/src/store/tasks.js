@@ -9,7 +9,7 @@ module AzureTable from '../../vendor/azure_table';
 module superagent from '../../vendor/superagent';
 
 export default class TasksStore {
-  constructor(host) {
+  constructor(host='') {
     this.host = host;
     var authUrl = this.path(URLS.azureAuth());
     this.azure = new AzureTable({

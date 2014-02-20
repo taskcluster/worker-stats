@@ -10,7 +10,7 @@ export default class TaskModel {
   static bashTask(image, command) {
     return new TaskModel({
       image: image,
-      command: ['/bin/bash', '-c', command]
+      command: ['/bin/bash', '-c'].concat(command.split(' '))
     });
   }
 }

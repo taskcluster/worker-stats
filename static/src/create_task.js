@@ -2,9 +2,9 @@
 
 /** glue for building the task */
 module Terminal from '../vendor/term';
-import {TasksStore} from 'store/tasks';
-import {Log} from 'store/log';
-import {TaskModel} from 'model/task';
+import TasksStore from 'store/tasks';
+import Log from 'store/log';
+import TaskModel from 'model/task';
 import {TaskView} from 'view/create_task';
 
 var view = new TaskView(document.querySelector('#create-task'));
@@ -19,8 +19,12 @@ var term = new Terminal({
 term.open(document.body);
 
 view.onsubmit = (json) => {
-  var task = TaskModel.bashTask(json.image, json.command);
-  store.createTask(task).then((result) => {
+  var task = new TaskModel({
+    image: json.image,
+    command: json.command
+  });
+
+  store.createTask(json.queue, task).then((result) => {
     return store.refreshTaskUntil(result, 'log');
   }).then((task) => {
     var reader = new Log(task.log);

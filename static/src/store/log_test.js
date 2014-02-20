@@ -1,5 +1,5 @@
 /*jshint esnext:true */
-import {Log} from './log';
+import Log from './log';
 import {assert} from '../../vendor/chai';
 
 suite('store/log', function() {

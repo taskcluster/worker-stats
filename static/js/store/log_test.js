@@ -1,7 +1,7 @@
 define(['./log', '../../vendor/chai'], function($__0,$__1) {
   "use strict";
   var __moduleName = "../../../../static/src/store/log_test";
-  var Log = ($__0).Log;
+  var Log = ($__0).default;
   var assert = ($__1).assert;
   suite('store/log', function() {
     var url = 'http://taskclusterlog.blob.core.windows.net/taskclusterlogs/08890cb0-dac7-46b9-ad09-28cfd3a65f27';

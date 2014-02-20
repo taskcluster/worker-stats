@@ -12,7 +12,8 @@ define(['../../vendor/azure_table', '../../vendor/superagent'], function($__0,$_
   var AzureTable = $__0;
   var superagent = $__1;
   var $__default = (function() {
-    var TasksStore = function TasksStore(host) {
+    var TasksStore = function TasksStore() {
+      var host = arguments[0] !== (void 0) ? arguments[0]: '';
       this.host = host;
       var authUrl = this.path(URLS.azureAuth());
       this.azure = new AzureTable({signUrl: authUrl});

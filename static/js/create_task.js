@@ -2,9 +2,9 @@ define(['../vendor/term', 'store/tasks', 'store/log', 'model/task', 'view/create
   "use strict";
   var __moduleName = "../../../../static/src/create_task";
   var Terminal = $__0;
-  var TasksStore = ($__1).TasksStore;
-  var Log = ($__2).Log;
-  var TaskModel = ($__3).TaskModel;
+  var TasksStore = ($__1).default;
+  var Log = ($__2).default;
+  var TaskModel = ($__3).default;
   var TaskView = ($__4).TaskView;
   var view = new TaskView(document.querySelector('#create-task'));
   var store = new TasksStore();
@@ -16,8 +16,11 @@ define(['../vendor/term', 'store/tasks', 'store/log', 'model/task', 'view/create
   });
   term.open(document.body);
   view.onsubmit = (function(json) {
-    var task = TaskModel.bashTask(json.image, json.command);
-    store.createTask(task).then((function(result) {
+    var task = new TaskModel({
+      image: json.image,
+      command: json.command
+    });
+    store.createTask(json.queue, task).then((function(result) {
       return store.refreshTaskUntil(result, 'log');
     })).then((function(task) {
       var reader = new Log(task.log);

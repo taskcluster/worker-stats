@@ -9,7 +9,11 @@ function req(method, url) {
 }
 
 function getReq(logger) {
-  var current = req('GET', logger.url);
+  // sadly we need to cache bust because azure won't send over the complete
+  // header if the browser tries to avoid making this request by including
+  // etags.
+  var current = req('GET', `${logger.url}?nocache=${Date.now()}`);
+
   if (logger.etag) current.set('If-None-Match', logger.etag);
   if (logger.offset) current.set('Range', 'bytes=' + logger.offset + '-');
   return current;
@@ -25,7 +29,7 @@ function logIsComplete(req) {
   return req.headers['x-ms-meta-complete'];
 }
 
-export class Log {
+export default class Log {
   constructor(url, interval=1000) {
     this.url = url;
     this.offset = 0;

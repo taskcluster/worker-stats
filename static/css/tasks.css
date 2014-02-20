@@ -1,0 +1,13 @@
+#tasks {
+  overflow: scrollY;
+}
+
+#tasks .task {
+  position:absolute;
+  left:0;
+  overflow:hidden;
+  padding:20px;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+}
