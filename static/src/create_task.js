@@ -21,7 +21,7 @@ term.open(document.body);
 view.onsubmit = (json) => {
   var task = new TaskModel({
     image: json.image,
-    command: json.command
+    command: [json.command]
   });
 
   store.createTask(json.queue, task).then((result) => {

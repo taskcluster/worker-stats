@@ -29,7 +29,8 @@ app.use(express.static('static'));
 
 // initialize the table if it does not exist
 var service = app.get('tableService');
-var tablePromise = service.createTableIfNotExists(app.get('table'));
+console.log(service);
+var tablePromise = service.createTableIfNotExists(app.get('table'), {});
 var tableResolved = false;
 
 tablePromise = tablePromise.then(function() {

@@ -18,7 +18,7 @@ define(['../vendor/term', 'store/tasks', 'store/log', 'model/task', 'view/create
   view.onsubmit = (function(json) {
     var task = new TaskModel({
       image: json.image,
-      command: json.command
+      command: [json.command]
     });
     store.createTask(json.queue, task).then((function(result) {
       return store.refreshTaskUntil(result, 'log');
