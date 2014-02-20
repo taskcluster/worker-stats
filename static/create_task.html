@@ -3,37 +3,54 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
    <link rel="import" href="header.html">
-  <title>Taskcluster worker stats</title>
+  <script defer src="vendor/traceur-runtime.js" type="text/javascript" charset="utf-8"></script>
+  <script defer data-main="js/create_task.js" src="vendor/alameda.js" type="text/javascript" charset="utf-8"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <title>TaskCluster Create Task</title>
 </head>
 <body>
 
+<div class="container">
+  <h1>Create Tasks</h1>
   <section id="create-task">
-    <h1>
-      Create a task
-    </h1>
-    <form method="POST" action="/tasks/new">
-      <label class="queue">
-        <span>Queue:</span>
-        <input value="aws-docker" name="queue" />
-      </label>
+    <form role="form" method="POST" action="/tasks/new">
+      <fieldset>
+        <label class="queue form-group">
+          <span>Queue:</span>
+          <input value="aws-docker" name="queue" />
+        </label>
 
-      <label class="image">
-        <span>Image:</span>
-        <input value="ubuntu" name="image" />
-      </label>
+        <label class="image">
+          <span>Image:</span>
+          <input value="ubuntu" name="image" />
+        </label>
 
-      <label class="command">
-        <span>Command:</span>
-        <input value="ls" name="command" />
-      </label>
+        <label class="command">
+          <span>Command:</span>
+          <input value="ls" name="command" />
+        </label>
 
-      <button>Submit</button>
+        <button>Submit</button>
+      </fieldset>
     </form>
   </section>
 
-  <script type="text/javascript" charset="utf-8">
-  </script>
-  <script defer src="vendor/traceur-runtime.js" type="text/javascript" charset="utf-8"></script>
-  <script defer data-main="js/create_task.js" src="vendor/alameda.js" type="text/javascript" charset="utf-8"></script>
+  <table class="table" id="created-tasks">
+    <template>
+      <tr>
+        <td class="submitted"></td>
+        <td><a class="taskLink" href="">Show Task</a></td>
+      </tr>
+    </template>
+
+    <thead>
+      <tr>
+        <th>Submission Date</th>
+        <th>Task Details</th>
+      </tr>
+    </thead>
+    <tbody class="content"></tbody>
+  </table>
+</div>
 </body>
 </html>

@@ -1,40 +1,26 @@
 /*jshint esnext: true */
 
 /** glue for building the task */
-module Terminal from '../vendor/term';
-import TasksStore from 'store/tasks';
-import Log from 'store/log';
-import TaskModel from 'model/task';
-import {TaskView} from 'view/create_task';
+import CreatedTasksList from './view/created_tasks';
+import TasksStore from './store/tasks';
+import TaskModel from './model/task';
+import TaskView from './view/create_task';
 
-var view = new TaskView(document.querySelector('#create-task'));
+var createdListView = new CreatedTasksList(document.querySelector(
+  '#created-tasks'
+));
+
 var store = new TasksStore();
-var term = new Terminal({
-  colors: Terminal.colors,
-  cols: 100,
-  rows: 30,
-  screenKeys: true
-});
+var createView = new TaskView(document.querySelector('#create-task'));
 
-term.open(document.body);
-
-view.onsubmit = (json) => {
+createView.onsubmit = (json) => {
   var task = new TaskModel({
     image: json.image,
     command: [json.command]
   });
 
-  store.createTask(json.queue, task).then((result) => {
-    return store.refreshTaskUntil(result, 'log');
-  }).then((task) => {
-    var reader = new Log(task.log);
-    reader.ondata = (value) => {
-      term.write(value);
-    };
-
-    reader.onend = () => {
-      console.log('done');
-    };
+  store.createTask(json.queue, task).then((task) => {
+    createdListView.add(task);
   }).catch((err) => {
     console.error('Could not create task', err);
   });

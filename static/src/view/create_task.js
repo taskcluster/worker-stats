@@ -19,7 +19,7 @@ function parseForm(form) {
 }
 
 
-export class TaskView {
+export default class TaskView {
   /**
   Task view for submitting tasks.
 

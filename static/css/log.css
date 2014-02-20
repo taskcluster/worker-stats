@@ -3,6 +3,7 @@
   margin: auto;
 }
 
-#log .log-terminal {
+#log .terminal {
   font-family: monospace;
+  padding: 20px;
 }

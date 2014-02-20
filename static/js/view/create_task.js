@@ -10,19 +10,21 @@ define([], function() {
     }
     return object;
   }
-  var TaskView = function TaskView(element) {
-    this.element = element;
-    var form = element.querySelector('form');
-    form.onsubmit = function(e) {
-      e.preventDefault();
-      var object = parseForm(form);
-      this.onsubmit(object);
-    }.bind(this);
-  };
-  ($traceurRuntime.createClass)(TaskView, {onsubmit: function() {}}, {});
+  var $__default = (function() {
+    var TaskView = function TaskView(element) {
+      this.element = element;
+      var form = element.querySelector('form');
+      form.onsubmit = function(e) {
+        e.preventDefault();
+        var object = parseForm(form);
+        this.onsubmit(object);
+      }.bind(this);
+    };
+    return ($traceurRuntime.createClass)(TaskView, {onsubmit: function() {}}, {});
+  }());
   return {
-    get TaskView() {
-      return TaskView;
+    get default() {
+      return $__default;
     },
     __transpiledModule: true
   };
