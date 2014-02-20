@@ -1,5 +1,10 @@
 /* jshint esnext: true */
 
+
+/**
+The logic is mostly taken form http://robert.ocallahan.org/2014/02/implementing-virtual-widgets-on-web.html
+*/
+
 var Selectors = {
   content: '.content',
   template: 'template'

@@ -3,7 +3,7 @@ module superagent from '../vendor/superagent';
 import View from './view/queue_list';
 
 var view = new View(document.querySelector(
-  '#queues'
+  '.list-view'
 ));
 
 superagent.get('/queues').end((err, res) => {

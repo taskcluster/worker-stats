@@ -1,31 +1,16 @@
-define([], function() {
+define(['./list'], function($__0) {
   "use strict";
   var __moduleName = "../../../../static/src/view/queue_list";
-  var $__default = (function() {
-    var QueueList = function QueueList(element) {
-      this.element = element;
-      var template = element.querySelector('template.item');
-      template.parentNode.removeChild(template);
-      this.itemTemplate = template.content.querySelector('.queue');
-      console.log(this.itemTemplate);
+  var ListView = ($__0).default;
+  var $__default = (function($__super) {
+    var QueueList = function QueueList() {
+      $traceurRuntime.defaultSuperCall(this, QueueList.prototype, arguments);
     };
-    return ($traceurRuntime.createClass)(QueueList, {
-      populateItem: function(element, item) {
+    return ($traceurRuntime.createClass)(QueueList, {populateItem: function(element, item) {
         element.querySelector('.name').textContent = item.name;
         element.querySelector('.size').textContent = item.size;
-      },
-      setList: function(list) {
-        var $__0 = this;
-        this.list = list;
-        this.element.innerHTML = '';
-        list.forEach((function(queue) {
-          var item = $__0.itemTemplate.cloneNode(true);
-          $__0.element.appendChild(item);
-          $__0.populateItem(item, queue);
-        }));
-      }
-    }, {});
-  }());
+      }}, {}, $__super);
+  }(ListView));
   return {
     get default() {
       return $__default;
