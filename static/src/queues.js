@@ -12,4 +12,5 @@ superagent.get('/queues').end((err, res) => {
     return;
   }
   view.setList(res.body);
+  view.update();
 });

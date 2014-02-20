@@ -10,6 +10,7 @@ define(['../vendor/superagent', './view/queue_list'], function($__0,$__1) {
       return;
     }
     view.setList(res.body);
+    view.update();
   }));
   return {};
 });
