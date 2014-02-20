@@ -1,13 +1,13 @@
-#tasks {
-  overflow: scrollY;
+html, body {
+  height: 100%
+  overflow: none;
 }
 
-#tasks .task {
-  position:absolute;
-  left:0;
-  overflow:hidden;
+.list-view {
+  height: 300px;
+  overflow: scroll;
+}
+
+.task {
   padding:20px;
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
 }

@@ -1,0 +1,15 @@
+.list-view {
+  overflow: scroll;
+  height: 50%;
+  position: relative;
+}
+
+.list-view .content {
+  position: relative;
+}
+
+.list-view .item {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+}
