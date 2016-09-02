@@ -16,7 +16,6 @@
     "ironmq-promise": "0.0.1",
     "uuid": "~1.4.1",
     "express": "~3.4.8",
-    "aws-sdk-promise": "0.0.0",
     "aws-sdk": "~2.0.0-rc9",
     "azure-sas": "0.0.1",
     "azure": "~0.8.1",

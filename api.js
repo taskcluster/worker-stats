@@ -1,4 +1,4 @@
-var aws = require('aws-sdk-promise');
+var aws = require('aws-sdk');
 var S3 = aws.S3;
 
 var express = require('express');
